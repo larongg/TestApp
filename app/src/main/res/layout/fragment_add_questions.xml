@@ -14,10 +14,10 @@
             android:id="@+id/scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/buttons_del_clear"
             android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="0dp"
-            android:layout_marginBottom="10sp">
+            android:layout_marginBottom="60dp">
 
             <LinearLayout
                 android:id="@+id/add_question_main"
@@ -45,7 +45,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -70,7 +71,8 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:textSize="20sp" />
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
@@ -100,7 +102,8 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:textSize="20sp" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
@@ -109,35 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:id="@+id/option2"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/option2_input"
-                                android:layout_width="300sp"
-                                android:layout_height="wrap_content">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <Button
-                                android:id="@+id/option2_del"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                android:text="@string/del_button"
-                                android:textSize="34sp" />
-                        </LinearLayout>
-
-                    </LinearLayout>
+                        android:orientation="vertical"/>
 
                     <Button
                         android:id="@+id/add_option"
@@ -177,7 +152,8 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content" />
+                                android:layout_height="wrap_content"
+                                android:textSize="20sp" />
                         </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
 
@@ -186,35 +162,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:id="@+id/correct_option2"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.textfield.TextInputLayout
-                                android:id="@+id/correct_option2_input"
-                                android:layout_width="300sp"
-                                android:layout_height="wrap_content">
-
-                                <com.google.android.material.textfield.TextInputEditText
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content" />
-                            </com.google.android.material.textfield.TextInputLayout>
-
-                            <Button
-                                android:id="@+id/correct_option2_del"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp"
-                                android:text="@string/del_button"
-                                android:textSize="34sp" />
-
-                        </LinearLayout>
-                    </LinearLayout>
+                        android:orientation="vertical"/>
 
                     <Button
                         android:id="@+id/add_correct_option"
@@ -225,39 +173,52 @@
                         android:insetBottom="0dp"
                         android:text="@string/plus"
                         android:textSize="34sp" />
+
                 </LinearLayout>
+
+                <RelativeLayout
+                    android:id="@+id/buttons_del_clear"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_marginBottom="60dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="30dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/clear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/clear"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="30dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/add"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/AddButton" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
             </LinearLayout>
         </ScrollView>
 
-        <RelativeLayout
-            android:id="@+id/buttons_del_clear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="0dp"
-            android:layout_marginEnd="0dp"
-            android:layout_marginBottom="60dp">
-
-            <Button
-                android:id="@+id/clear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_marginStart="60dp"
-                android:layout_marginEnd="57dp"
-                android:layout_toStartOf="@+id/add"
-                android:text="@string/clear" />
-
-            <Button
-                android:id="@+id/add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="60dp"
-                android:text="@string/AddButton" />
-        </RelativeLayout>
-
     </RelativeLayout>
+
 </FrameLayout>
