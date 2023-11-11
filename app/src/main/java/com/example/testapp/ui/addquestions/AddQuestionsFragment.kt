@@ -15,7 +15,6 @@ import com.example.testapp.functions.TestApp
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import com.google.android.material.textview.MaterialTextView
 
 
 class AddQuestionsFragment : Fragment() {
@@ -32,7 +31,23 @@ class AddQuestionsFragment : Fragment() {
         val buttonAddCorrectOption = view.findViewById<Button>(R.id.add_correct_option)
         val othersOption = view.findViewById<LinearLayout>(R.id.others_options)
         val othersCorrectOption = view.findViewById<LinearLayout>(R.id.others_correct_options)
+        val category = view.findViewById<TextInputLayout>(R.id.category_input)
+        val question = view.findViewById<TextInputLayout>(R.id.question_input)
 
+        val others = hashMapOf<Int, TextInputLayout>()
+        val option1Input = view.findViewById<TextInputLayout>(R.id.option1_input)
+        others[option1Input.id] = option1Input
+
+        val correctOthers = hashMapOf<Int, TextInputLayout>()
+        val correctOption1Input = view.findViewById<TextInputLayout>(R.id.correct_option1_input)
+        correctOthers[correctOption1Input.id] = correctOption1Input
+
+        // Функция для показа Toast
+        fun showToast(message: String) {
+            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
+
+        // Функция создание нового варианта ответа
         buttonAddOption.setOnClickListener {
             // Создаем новый LinearLayout
             val newLinearLayout = LinearLayout(requireContext())
@@ -44,7 +59,6 @@ class AddQuestionsFragment : Fragment() {
             newLinearLayout.layoutParams = params
             newLinearLayout.orientation = LinearLayout.HORIZONTAL
 
-
             // Создаем новый TextInputLayout
             val newTextInputLayout = TextInputLayout(requireContext())
             newTextInputLayout.layoutParams = LinearLayout.LayoutParams(
@@ -52,6 +66,8 @@ class AddQuestionsFragment : Fragment() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 1f
             )
+            newTextInputLayout.id = View.generateViewId()
+
             newTextInputLayout.boxStrokeWidth = 2
             newTextInputLayout.boxStrokeWidthFocused = 2
             newTextInputLayout.boxStrokeColor = ContextCompat.getColor(
@@ -67,10 +83,13 @@ class AddQuestionsFragment : Fragment() {
             )
             newEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
             newEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+            newEditText.isSingleLine = false
+            newEditText.maxLines = Int.MAX_VALUE
 
 
             // Добавляем TextInputEditText в TextInputLayout
             newTextInputLayout.addView(newEditText)
+            others[newTextInputLayout.id] = newTextInputLayout
 
             // Создаем новую кнопку
             val newDelButton = MaterialButton(requireContext())
@@ -87,7 +106,9 @@ class AddQuestionsFragment : Fragment() {
 
             // Добавляем TextInputLayout и кнопку в новый LinearLayout
             newLinearLayout.addView(newTextInputLayout)
+
             newDelButton.setOnClickListener {
+                others.remove(newTextInputLayout.id)
                 val parentLayout = newLinearLayout.parent as? ViewGroup
                 parentLayout?.removeView(newLinearLayout)
             }
@@ -98,6 +119,7 @@ class AddQuestionsFragment : Fragment() {
 
         }
 
+        // Функция создания нового верного варианта ответа
         buttonAddCorrectOption.setOnClickListener {
             // Создаем новый LinearLayout
             val newLinearLayout = LinearLayout(requireContext())
@@ -123,6 +145,7 @@ class AddQuestionsFragment : Fragment() {
                 requireContext(),
                 R.color.purple_500
             )
+            newTextInputLayout.id = View.generateViewId()
 
 
             // Создаем новый TextInputEditText
@@ -133,10 +156,12 @@ class AddQuestionsFragment : Fragment() {
             )
             newEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
             newEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
-
+            newEditText.isSingleLine = false
+            newEditText.maxLines = Int.MAX_VALUE
 
             // Добавляем TextInputEditText в TextInputLayout
             newTextInputLayout.addView(newEditText)
+            correctOthers[newTextInputLayout.id] = newTextInputLayout
 
             // Создаем новую кнопку
             val newDelButton = MaterialButton(requireContext())
@@ -153,7 +178,9 @@ class AddQuestionsFragment : Fragment() {
 
             // Добавляем TextInputLayout и кнопку в новый LinearLayout
             newLinearLayout.addView(newTextInputLayout)
+
             newDelButton.setOnClickListener {
+                correctOthers.remove(newTextInputLayout.id)
                 val parentLayout = newLinearLayout.parent as? ViewGroup
                 parentLayout?.removeView(newLinearLayout)
             }
@@ -163,23 +190,51 @@ class AddQuestionsFragment : Fragment() {
             othersCorrectOption.addView(newLinearLayout)
         }
 
+        // Функция добавления карточки
         buttonAdd.setOnClickListener {
-            Toast.makeText(
-                context, "Вопрос добавлен", Toast.LENGTH_SHORT
-            ).show()
+            val correctOptions = mutableListOf<String>()
+            for (key in correctOthers.keys) {
+                correctOptions.add(correctOthers[key]?.editText?.text.toString())
+            }
+            correctOptions.removeIf { it.isBlank() }
+
+            val options = mutableListOf<String>()
+            for (key in others.keys) {
+                options.add(others[key]?.editText?.text.toString())
+            }
+            options.removeIf { it.isBlank() }
+
+            when {
+                category.editText?.text.toString().isBlank() -> showToast("""Поле "Категория" пусто""")
+                question.editText?.text.toString().isBlank() -> showToast("""Поле "Вопрос" пусто""")
+                options.isEmpty() -> showToast("""Поле "Варианты ответа" не заполнено""")
+                correctOptions.isEmpty() -> showToast("""Поле "Правильные варианты ответа" не заполнено""")
+                else -> {
+                    val added = testApp.addQuestionCard(
+                        category.editText?.text.toString(),
+                        question.editText?.text.toString(),
+                        options,
+                        correctOptions,
+                        requireContext().filesDir.path
+                    )
+                    showToast(added)
+                }
+            }
         }
 
+        // Функция очистки бланка
         buttonClear.setOnClickListener {
+            others.clear()
+            others[option1Input.id] = option1Input
+            correctOthers.clear()
+            correctOthers[correctOption1Input.id] = correctOption1Input
             othersOption.removeAllViews()
             othersCorrectOption.removeAllViews()
-            val categoryInput = view.findViewById<TextInputLayout>(R.id.category_input)
-            categoryInput.editText?.text?.clear()
-            val questionsInput = view.findViewById<TextInputLayout>(R.id.question_input)
-            questionsInput.editText?.text?.clear()
-            val option1 = view.findViewById<TextInputLayout>(R.id.option1_input)
-            option1.editText?.text?.clear()
-            val correctOption1 = view.findViewById<TextInputLayout>(R.id.correct_option1_input)
-            correctOption1.editText?.text?.clear()
+            category.editText?.text?.clear()
+            question.editText?.text?.clear()
+            option1Input.editText?.text?.clear()
+            correctOption1Input.editText?.text?.clear()
+
             Toast.makeText(requireContext(), "Очищено", Toast.LENGTH_SHORT).show()
         }
         return view
