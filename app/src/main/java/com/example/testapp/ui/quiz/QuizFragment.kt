@@ -12,6 +12,7 @@ import android.widget.Switch
 import android.widget.Toast
 import com.example.testapp.R
 import com.example.testapp.functions.TestApp
+import com.google.android.material.button.MaterialButton
 import java.io.IOException
 
 class QuizFragment : Fragment() {
@@ -40,17 +41,20 @@ class QuizFragment : Fragment() {
             )
             linearLayout.orientation = LinearLayout.VERTICAL
 
-            @Suppress("NAME_SHADOWING") val container = LinearLayout(requireContext())
+            @Suppress("NAME_SHADOWING")
+            val container = LinearLayout(requireContext())
             container.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
             )
             container.orientation = LinearLayout.HORIZONTAL
 
-            val button = Button(requireContext())
+            val button = MaterialButton(requireContext())
             button.id = View.generateViewId()
-            button.layoutParams =
-                LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f)
+            button.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                1f)
             button.contentDescription = getString(R.string.app_name)
             button.text = category
             button.setOnClickListener {
@@ -60,8 +64,9 @@ class QuizFragment : Fragment() {
             val switch = Switch(requireContext())
             switch.id = View.generateViewId()
             switch.layoutParams = LinearLayout.LayoutParams(
-                resources.getDimensionPixelSize(R.dimen.switch_width),
-                resources.getDimensionPixelSize(R.dimen.switch_height)
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                6f
             )
 
             container.addView(button)
