@@ -23,7 +23,7 @@
             <LinearLayout
                 android:id="@+id/category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
@@ -36,12 +36,20 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/category_input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:minHeight="48dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@color/white"
+                        android:minHeight="48dp"
+                        android:paddingStart="0dp"
+                        android:paddingLeft="0dp"
+                        android:paddingTop="0dp"
+                        android:paddingEnd="0dp"
+                        android:paddingRight="0dp"
+                        android:paddingBottom="0dp"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -49,7 +57,7 @@
             <LinearLayout
                 android:id="@+id/question"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
@@ -63,12 +71,20 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/question_input"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:minHeight="48dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@color/white"
+                        android:minHeight="48dp"
+                        android:paddingStart="0dp"
+                        android:paddingLeft="0dp"
+                        android:paddingTop="0dp"
+                        android:paddingEnd="0dp"
+                        android:paddingRight="0dp"
+                        android:paddingBottom="0dp"
                         android:textSize="20sp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -83,7 +99,7 @@
                 <LinearLayout
                     android:id="@+id/main_options"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical">
 
                     <TextView
@@ -92,109 +108,109 @@
                         android:text="@string/options"
                         android:textSize="24sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/option1_input"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                        <com.google.android.material.textfield.TextInputEditText
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/option1_input"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:textSize="20sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:minHeight="48dp">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@color/white"
+                                android:paddingStart="0dp"
+                                android:paddingLeft="0dp"
+                                android:paddingTop="0dp"
+                                android:paddingEnd="0dp"
+                                android:paddingRight="0dp"
+                                android:paddingBottom="0dp"
+                                android:textSize="20sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <CheckBox
+                            android:id="@+id/option_1_check"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="5" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/others_options"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"/>
-
-                <Button
-                    android:id="@+id/add_option"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="@string/plus"
-                    android:textSize="34sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/correct_options"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical">
+                    android:orientation="vertical" />
 
                 <LinearLayout
-                    android:id="@+id/main_correct_optons"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
+                    <Button
+                        android:id="@+id/add_option"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/correct_options"
-                        android:textSize="24sp" />
+                        android:layout_weight="1"
+                        android:background="@color/purple_500"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="@string/plus"
+                        android:textSize="34sp" />
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/correct_option1_input"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                    <Button
+                        android:id="@+id/del_option"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/purple_500"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minHeight="20dp"
+                        android:text="@string/del_button"
+                        android:textSize="34sp" />
 
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:background="@color/white"
-                            android:textSize="20sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/others_correct_options"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical" />
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/add_correct_option"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:text="@string/plus"
-                    android:textSize="34sp" />
+                    <Button
+                        android:id="@+id/clear"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/purple_500"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="@string/clear"
+                        android:textSize="14sp" />
 
-            </LinearLayout>
+                    <Button
+                        android:id="@+id/add"
+                        style="?android:attr/buttonBarButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/purple_500"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:text="@string/AddButton" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/clear"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="30dp"
-                    android:layout_weight="1"
-                    android:text="@string/clear"
-                    android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_weight="1"
-                    android:text="@string/AddButton" />
             </LinearLayout>
 
         </LinearLayout>
@@ -202,8 +218,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="match_parent" />
 
 </FrameLayout>
