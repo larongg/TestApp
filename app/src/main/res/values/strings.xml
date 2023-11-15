@@ -113,18 +113,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="AddButton">Добавить</string>
-    <string name="AddText">
-        "Пример как добавить вопрос:\n\nКаникула # Это категория вопросов\n\nПервый негр в Каникуле? # Сам вопрос\n\nИшутин Иван || Филинов Иван || Зворыгин Никита || Шестопалов Пётр # Варианты ответов на вопрос, важно добавлять варианты ответов через || \n\n"Филинов Иван # Правильный ответ, здест также можно добавлять несколько верных вариантов ответа через || "
-    </string>
     <string name="category">Категория</string>
     <string name="question">Вопрос</string>
-    <string name="options">Варианты ответов на вопрос</string>
+    <string name="options">Варианты ответов</string>
     <string name="clear">Очистить</string>
     <string name="plus">+</string>
     <string name="del_button">-</string>
-    <string name="correct_options">Правильные ответы</string>
-    <string name="_4">4</string>
-    <string name="_5">5</string>
-    <string name="_2_2">2+2</string>
-    <string name="math">Математика</string>
 </resources>

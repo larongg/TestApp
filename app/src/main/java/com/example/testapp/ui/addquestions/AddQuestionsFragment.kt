@@ -1,23 +1,64 @@
 package com.example.testapp.ui.addquestions
 
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.testapp.R
 import com.example.testapp.functions.TestApp
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 
 
 class AddQuestionsFragment : Fragment() {
+    private fun createNewLinearLayout(): LinearLayout {
+        val newLinearLayout = LinearLayout(requireContext())
+        newLinearLayout.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        newLinearLayout.orientation = LinearLayout.HORIZONTAL
+        return newLinearLayout
+    }
+
+    /*fun createNewTextInputLayout(): TextInputLayout {
+        val newTextInputLayout = TextInputLayout(requireContext())
+        newTextInputLayout.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            1f
+        )
+        newTextInputLayout.boxStrokeWidth = 0
+        newTextInputLayout.boxStrokeWidthFocused = 0
+        return newTextInputLayout
+    }*/
+
+    private fun createNewEditText(hint : String = ""): TextInputEditText {
+        val newEditText = TextInputEditText(requireContext())
+        newEditText.layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT,
+            1f
+        )
+        newEditText.hint = hint
+        return newEditText
+    }
+
+    private fun createNewCheckBox(): MaterialCheckBox {
+        val newCheckBox = MaterialCheckBox(requireContext())
+        newCheckBox.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            5f
+        )
+        newCheckBox.minHeight = 0
+        newCheckBox.isChecked = false
+        return newCheckBox
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -29,122 +70,84 @@ class AddQuestionsFragment : Fragment() {
         val buttonDel = view.findViewById<MaterialButton>(R.id.del_option)
         val buttonClear = view.findViewById<MaterialButton>(R.id.clear)
         val buttonAddOption = view.findViewById<MaterialButton>(R.id.add_option)
-        val otherOptions = view.findViewById<LinearLayout>(R.id.others_options)
-        val category = view.findViewById<TextInputLayout>(R.id.category_input)
-        val question = view.findViewById<TextInputLayout>(R.id.question_input)
+
+        val options = view.findViewById<LinearLayout>(R.id.options)
+        val categoryLayout = view.findViewById<LinearLayout>(R.id.category)
+        val category = createNewEditText("Категория")
+        categoryLayout.addView(category)
+        val questionLayout = view.findViewById<LinearLayout>(R.id.question)
+        val question = createNewEditText("Вопрос")
+        questionLayout.addView(question)
 
         val layouts = mutableListOf<LinearLayout>()
-        val others = hashMapOf<Int, TextInputLayout>()
+        val others = hashMapOf<Int, TextInputEditText>()
         val othersChecked = hashMapOf<Int, MaterialCheckBox>()
-        val option1Input = view.findViewById<TextInputLayout>(R.id.option1_input)
-        val check1 = view.findViewById<MaterialCheckBox>(R.id.option_1_check)
-        others[option1Input.id] = option1Input
-        othersChecked[option1Input.id] = check1
+        val option1 = createNewEditText("Ответы")
+        val check1 = createNewCheckBox()
+        val linearLayout1 = createNewLinearLayout()
+        linearLayout1.addView(option1)
+        linearLayout1.addView(check1)
+        options.addView(linearLayout1)
+        others[option1.id] = option1
+        othersChecked[option1.id] = check1
 
-
-        // Функция для показа Toast
         fun showToast(message: String) {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
         }
 
-
-        // Функция создание нового варианта ответа
+        // Создание нового варианта ответа
         buttonAddOption.setOnClickListener {
-            // Создаем новый LinearLayout
-            val newLinearLayout = LinearLayout(requireContext())
-            val params = ViewGroup.MarginLayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
-            params.topMargin = 10
-            newLinearLayout.layoutParams = params
-            newLinearLayout.orientation = LinearLayout.HORIZONTAL
-
-
-            // Создаем новый TextInputLayout
-            val newTextInputLayout = TextInputLayout(requireContext())
-            newTextInputLayout.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                1f
-            )
-            newTextInputLayout.minimumHeight = 48
-            newTextInputLayout.boxStrokeWidth = 2
-            newTextInputLayout.boxStrokeWidthFocused = 3
-            newTextInputLayout.boxStrokeColor = ContextCompat.getColor(
-                requireContext(),
-                R.color.purple_500
-            )
-            newTextInputLayout.id = View.generateViewId()
-
-
-            // Создаем новый TextInputEditText
-            val newEditText = TextInputEditText(requireContext())
-            newEditText.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-            )
-            newEditText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20f)
-            newEditText.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
-            newEditText.isSingleLine = false
-            newEditText.maxLines = Int.MAX_VALUE
-
-
-            // Создаем новый CheckBox
-            val newCheckBox = MaterialCheckBox(requireContext())
-            newCheckBox.layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                5f
-            )
-            newCheckBox.isChecked = false
-
+            val newLinearLayout = createNewLinearLayout()
+            //val newTextInputLayout = createNewTextInputLayout()
+            val newEditText = createNewEditText()
+            val newCheckBox = createNewCheckBox()
 
             // Добавляем всё во всё
-            newTextInputLayout.addView(newEditText)
-            newLinearLayout.addView(newTextInputLayout)
+            //newTextInputLayout.addView(newEditText)
+            //newLinearLayout.addView(newTextInputLayout)
+            newLinearLayout.addView(newEditText)
             newLinearLayout.addView(newCheckBox)
-            otherOptions.addView(newLinearLayout)
-            others[newTextInputLayout.id] = newTextInputLayout
-            othersChecked[newTextInputLayout.id] = newCheckBox
+            options.addView(newLinearLayout)
+
+            // Добавляем созданные элементы в списки
+            others[newEditText.id] = newEditText
+            othersChecked[newEditText.id] = newCheckBox
             layouts.add(newLinearLayout)
         }
 
-
         // Функция удаления последнего варианта ответа
         buttonDel.setOnClickListener {
-            if (layouts.isNotEmpty()) {
-                otherOptions.removeView(layouts.last())
+            if (layouts.size != 1) {
+                options.removeView(layouts.last())
                 layouts.removeLast()
             }
         }
 
-
         // Функция добавления карточки
         buttonAdd.setOnClickListener {
             val correctOptions = mutableListOf<String>()
-            val options = mutableListOf<String>()
+            val optionsList = mutableListOf<String>()
             for (key in others.keys) {
                 if (othersChecked[key]!!.isChecked) {
-                    correctOptions.add(others[key]?.editText?.text.toString())
+                    correctOptions.add(others[key]?.text.toString())
                 }
-                options.add(others[key]?.editText?.text.toString())
+                optionsList.add(others[key]?.text.toString())
             }
-            options.removeIf { it.isBlank() }
+            optionsList.removeIf { it.isBlank() }
             correctOptions.removeIf { it.isBlank() }
 
             when {
-                category.editText?.text.toString()
+                category.text.toString()
                     .isBlank() -> showToast("""Поле "Категория" пусто""")
 
-                question.editText?.text.toString().isBlank() -> showToast("""Поле "Вопрос" пусто""")
-                options.isEmpty() -> showToast("""Поле "Варианты ответа" не заполнено""")
-                !options.any { it in correctOptions } -> showToast("Не выбраны правильные варианты ответа")
+                question.text.toString().isBlank() -> showToast("""Поле "Вопрос" пусто""")
+                optionsList.isEmpty() -> showToast("""Поле "Варианты ответа" не заполнено""")
+                !optionsList.any { it in correctOptions } -> showToast("Не выбраны правильные варианты ответа")
                 else -> {
                     val added = testApp.addQuestionCard(
-                        category.editText?.text.toString(),
-                        question.editText?.text.toString(),
-                        options,
+                        category.text.toString(),
+                        question.text.toString(),
+                        optionsList,
                         correctOptions,
                         requireContext().filesDir.path
                     )
@@ -157,13 +160,14 @@ class AddQuestionsFragment : Fragment() {
         // Функция очистки бланка
         buttonClear.setOnClickListener {
             others.clear()
-            others[option1Input.id] = option1Input
+            others[option1.id] = option1
             othersChecked.clear()
-            othersChecked[option1Input.id] = check1
-            otherOptions.removeAllViews()
-            category.editText?.text?.clear()
-            question.editText?.text?.clear()
-            option1Input.editText?.text?.clear()
+            othersChecked[option1.id] = check1
+            options.removeAllViews()
+            options.addView(linearLayout1)
+            category.editableText.clear()
+            question.editableText.clear()
+            option1.editableText.clear()
 
             Toast.makeText(requireContext(), "Очищено", Toast.LENGTH_SHORT).show()
         }

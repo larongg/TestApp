@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blind"
     tools:context=".ui.addquestions.AddQuestionsFragment">
 
     <ScrollView
@@ -23,193 +24,87 @@
             <LinearLayout
                 android:id="@+id/category"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/category"
-                    android:textSize="24sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/category_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:minHeight="48dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:minHeight="48dp"
-                        android:paddingStart="0dp"
-                        android:paddingLeft="0dp"
-                        android:paddingTop="0dp"
-                        android:paddingEnd="0dp"
-                        android:paddingRight="0dp"
-                        android:paddingBottom="0dp"
-                        android:textSize="20sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="10dp" />
 
             <LinearLayout
                 android:id="@+id/question"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/question"
-                    android:textSize="24sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/question_input"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:minHeight="48dp">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/white"
-                        android:minHeight="48dp"
-                        android:paddingStart="0dp"
-                        android:paddingLeft="0dp"
-                        android:paddingTop="0dp"
-                        android:paddingEnd="0dp"
-                        android:paddingRight="0dp"
-                        android:paddingBottom="0dp"
-                        android:textSize="20sp" />
-                </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="10dp" />
 
             <LinearLayout
                 android:id="@+id/options"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical">
+                android:background="@drawable/border"
+                android:orientation="vertical"
+                android:padding="10dp"/>
 
-                <LinearLayout
-                    android:id="@+id/main_options"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="@string/options"
-                        android:textSize="24sp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/option1_input"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:minHeight="48dp">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:background="@color/white"
-                                android:paddingStart="0dp"
-                                android:paddingLeft="0dp"
-                                android:paddingTop="0dp"
-                                android:paddingEnd="0dp"
-                                android:paddingRight="0dp"
-                                android:paddingBottom="0dp"
-                                android:textSize="20sp" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <CheckBox
-                            android:id="@+id/option_1_check"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="5" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/others_options"
-                    android:layout_width="match_parent"
+                <Button
+                    android:id="@+id/add_option"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" />
+                    android:layout_weight="1"
+                    android:background="@color/purple_500"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:text="@string/plus"
+                    android:textSize="34sp" />
 
-                <LinearLayout
+                <Button
+                    android:id="@+id/del_option"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/purple_500"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minHeight="20dp"
+                    android:text="@string/del_button"
+                    android:textSize="34sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/clear"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+                    android:layout_weight="1"
+                    android:background="@color/purple_500"
+                    android:text="@string/clear"
+                    android:textSize="16sp" />
 
-                    <Button
-                        android:id="@+id/add_option"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/purple_500"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="@string/plus"
-                        android:textSize="34sp" />
-
-                    <Button
-                        android:id="@+id/del_option"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/purple_500"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:minHeight="20dp"
-                        android:text="@string/del_button"
-                        android:textSize="34sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
+                <Button
+                    android:id="@+id/add"
+                    style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/clear"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/purple_500"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="@string/clear"
-                        android:textSize="14sp" />
-
-                    <Button
-                        android:id="@+id/add"
-                        style="?android:attr/buttonBarButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:background="@color/purple_500"
-                        android:insetTop="0dp"
-                        android:insetBottom="0dp"
-                        android:text="@string/AddButton" />
-                </LinearLayout>
+                    android:layout_weight="1"
+                    android:background="@color/purple_500"
+                    android:text="@string/AddButton"
+                    android:textSize="16sp" />
 
             </LinearLayout>
 

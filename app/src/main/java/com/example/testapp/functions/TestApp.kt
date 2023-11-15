@@ -3,7 +3,7 @@ package com.example.testapp.functions
 class TestApp {
     private val json = JSONHelper()
     private var shuffle = false
-    private val questionCards = HashMap<String, MutableList<QuestionCard>>()
+    private val questionCards = mutableMapOf<String, MutableList<QuestionCard>>()
 
     fun addQuestionCard(
         category: String,
@@ -15,7 +15,7 @@ class TestApp {
         val card = QuestionCard(question, options, correctOptions)
 
         if (!questionCards.containsKey(category)) {
-            questionCards.put(category, mutableListOf(card))
+            questionCards[category] = mutableListOf(card)
             json.writeFile(category, card, path)
             return "Категория создана, вопрос добавлен"
         } else if (!questionCards[category]!!.contains(card)) {
@@ -31,14 +31,11 @@ class TestApp {
         for (map in json.importFromJSON(path)) {
             @Suppress("UNCHECKED_CAST")
             if (!questionCards.containsKey(map["category"])) {
-                questionCards.put(
-                    map["category"].toString(),
-                    mutableListOf(
-                        QuestionCard(
-                            map["question"].toString(),
-                            map["options"] as List<String>,
-                            map["correctOptions"] as List<String>
-                        )
+                questionCards[map["category"].toString()] = mutableListOf(
+                    QuestionCard(
+                        map["question"].toString(),
+                        map["options"] as List<String>,
+                        map["correctOptions"] as List<String>
                     )
                 )
             } else {
