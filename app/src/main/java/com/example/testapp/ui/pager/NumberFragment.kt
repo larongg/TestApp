@@ -11,7 +11,6 @@ import com.example.testapp.R
 const val ARG_OBJECT = "object"
 
 class NumberFragment : Fragment() {
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -22,7 +21,7 @@ class NumberFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.takeIf { it.containsKey(ARG_OBJECT) }?.apply {
-            val textView: TextView = view.findViewById(R.id.textView)
+            val textView = view.findViewById<TextView>(R.id.textView)
             textView.text = getInt(ARG_OBJECT).toString()
         }
     }

@@ -1,15 +1,16 @@
 package com.example.testapp.ui.quiz
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.testapp.R
 import com.example.testapp.functions.TestApp
+import com.example.testapp.ui.pager.QuestionActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.checkbox.MaterialCheckBox
 import java.io.IOException
@@ -48,7 +49,8 @@ class QuizFragment : Fragment() {
                 1f)
             newButtonCategory.text = category
             newButtonCategory.setOnClickListener {
-                Toast.makeText(context, "Кнопка $category нажата", Toast.LENGTH_SHORT).show()
+                val intent = Intent(requireContext(), QuestionActivity::class.java)
+                startActivity(intent)
             }
 
             val newCheckBox = MaterialCheckBox(requireContext())

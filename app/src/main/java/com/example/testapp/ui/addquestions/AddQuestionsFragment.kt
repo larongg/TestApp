@@ -1,9 +1,11 @@
 package com.example.testapp.ui.addquestions
 
 import android.os.Bundle
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -11,7 +13,9 @@ import com.example.testapp.R
 import com.example.testapp.functions.TestApp
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.checkbox.MaterialCheckBox
+import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 
 class AddQuestionsFragment : Fragment() {
@@ -25,26 +29,32 @@ class AddQuestionsFragment : Fragment() {
         return newLinearLayout
     }
 
-    /*fun createNewTextInputLayout(): TextInputLayout {
-        val newTextInputLayout = TextInputLayout(requireContext())
+    private fun createNewTextInputLayout(): TextInputLayout {
+        val newTextInputLayout = TextInputLayout(
+            ContextThemeWrapper(requireContext(), R.style.MyTextInputLayout),
+            null,
+            0
+        )
         newTextInputLayout.layoutParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT,
             1f
         )
-        newTextInputLayout.boxStrokeWidth = 0
-        newTextInputLayout.boxStrokeWidthFocused = 0
-        return newTextInputLayout
-    }*/
 
-    private fun createNewEditText(hint : String = ""): TextInputEditText {
-        val newEditText = TextInputEditText(requireContext())
+        return newTextInputLayout
+    }
+
+    private fun createNewEditText(): TextInputEditText {
+        val newEditText = TextInputEditText(
+            requireContext()
+        )
         newEditText.layoutParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.WRAP_CONTENT,
-            1f
+            ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        newEditText.hint = hint
+        newEditText.textSize = 16f
+        newEditText.id = View.generateViewId()
+
         return newEditText
     }
 
@@ -71,25 +81,25 @@ class AddQuestionsFragment : Fragment() {
         val buttonClear = view.findViewById<MaterialButton>(R.id.clear)
         val buttonAddOption = view.findViewById<MaterialButton>(R.id.add_option)
 
-        val options = view.findViewById<LinearLayout>(R.id.options)
-        val categoryLayout = view.findViewById<LinearLayout>(R.id.category)
-        val category = createNewEditText("Категория")
-        categoryLayout.addView(category)
-        val questionLayout = view.findViewById<LinearLayout>(R.id.question)
-        val question = createNewEditText("Вопрос")
-        questionLayout.addView(question)
+        val optionsLayout = view.findViewById<LinearLayout>(R.id.other_options)
+
+        val category = view.findViewById<MaterialAutoCompleteTextView>(R.id.category_input)
+        val question = view.findViewById<TextInputEditText>(R.id.question_input)
+        val option1 = view.findViewById<TextInputEditText>(R.id.option1_input)
+        val check1 = view.findViewById<MaterialCheckBox>(R.id.checkBox1)
 
         val layouts = mutableListOf<LinearLayout>()
-        val others = hashMapOf<Int, TextInputEditText>()
-        val othersChecked = hashMapOf<Int, MaterialCheckBox>()
-        val option1 = createNewEditText("Ответы")
-        val check1 = createNewCheckBox()
-        val linearLayout1 = createNewLinearLayout()
-        linearLayout1.addView(option1)
-        linearLayout1.addView(check1)
-        options.addView(linearLayout1)
-        others[option1.id] = option1
-        othersChecked[option1.id] = check1
+        val optionsMap = hashMapOf<Int, TextInputEditText>()
+        val checkMap = hashMapOf<Int, MaterialCheckBox>()
+
+        optionsMap[option1.id] = option1
+        checkMap[option1.id] = check1
+
+        testApp.loadQuestions(requireContext().filesDir.path)
+        val categories = testApp.getAllCategories().toTypedArray()
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories)
+        category.setAdapter(adapter)
 
         fun showToast(message: String) {
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
@@ -98,27 +108,24 @@ class AddQuestionsFragment : Fragment() {
         // Создание нового варианта ответа
         buttonAddOption.setOnClickListener {
             val newLinearLayout = createNewLinearLayout()
-            //val newTextInputLayout = createNewTextInputLayout()
+            val newTextInputLayout = createNewTextInputLayout()
             val newEditText = createNewEditText()
             val newCheckBox = createNewCheckBox()
 
-            // Добавляем всё во всё
-            //newTextInputLayout.addView(newEditText)
-            //newLinearLayout.addView(newTextInputLayout)
-            newLinearLayout.addView(newEditText)
+            newTextInputLayout.addView(newEditText)
+            newLinearLayout.addView(newTextInputLayout)
             newLinearLayout.addView(newCheckBox)
-            options.addView(newLinearLayout)
+            optionsLayout.addView(newLinearLayout)
 
-            // Добавляем созданные элементы в списки
-            others[newEditText.id] = newEditText
-            othersChecked[newEditText.id] = newCheckBox
+            optionsMap[newEditText.id] = newEditText
+            checkMap[newEditText.id] = newCheckBox
             layouts.add(newLinearLayout)
         }
 
         // Функция удаления последнего варианта ответа
         buttonDel.setOnClickListener {
-            if (layouts.size != 1) {
-                options.removeView(layouts.last())
+            if (layouts.size != 0) {
+                optionsLayout.removeView(layouts.last())
                 layouts.removeLast()
             }
         }
@@ -127,11 +134,11 @@ class AddQuestionsFragment : Fragment() {
         buttonAdd.setOnClickListener {
             val correctOptions = mutableListOf<String>()
             val optionsList = mutableListOf<String>()
-            for (key in others.keys) {
-                if (othersChecked[key]!!.isChecked) {
-                    correctOptions.add(others[key]?.text.toString())
+            for (key in optionsMap.keys) {
+                if (checkMap[key]!!.isChecked) {
+                    correctOptions.add(optionsMap[key]?.text.toString())
                 }
-                optionsList.add(others[key]?.text.toString())
+                optionsList.add(optionsMap[key]?.text.toString())
             }
             optionsList.removeIf { it.isBlank() }
             correctOptions.removeIf { it.isBlank() }
@@ -159,12 +166,11 @@ class AddQuestionsFragment : Fragment() {
 
         // Функция очистки бланка
         buttonClear.setOnClickListener {
-            others.clear()
-            others[option1.id] = option1
-            othersChecked.clear()
-            othersChecked[option1.id] = check1
-            options.removeAllViews()
-            options.addView(linearLayout1)
+            optionsMap.clear()
+            optionsMap[option1.id] = option1
+            checkMap.clear()
+            checkMap[option1.id] = check1
+            optionsLayout.removeAllViews()
             category.editableText.clear()
             question.editableText.clear()
             option1.editableText.clear()
