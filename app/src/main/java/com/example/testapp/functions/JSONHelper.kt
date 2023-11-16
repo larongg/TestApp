@@ -17,6 +17,7 @@ const val DEFAULT_JSON_CONTENT = """{
         "correctOptions": ["8"]
     }]}
     """
+
 class JSONHelper {
     private val gson = Gson()
     private val listType = object : TypeToken<HashMap<String, MutableList<QuestionCard>>>() {}.type
@@ -34,10 +35,9 @@ class JSONHelper {
     fun writeFile(category: String, card: QuestionCard, path: String) {
         val list = importFromJSON(path)
 
-        if (list.containsKey(category) and !list[category]!!.contains(card)){
+        if (list.containsKey(category) && !list[category]!!.contains(card)) {
             list[category]!!.add(card)
-        }
-        if (!list.containsKey(category)) {
+        } else if (!list.containsKey(category)) {
             list[category] = mutableListOf(card)
         }
 

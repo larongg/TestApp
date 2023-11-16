@@ -16,15 +16,20 @@ const val ARG_CORRECT_OPTIONS = "correct_options"
 
 class NumberFragment : Fragment() {
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_number, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        arguments?.takeIf { it.containsKey(ARG_INT) && it.containsKey(ARG_CATEGORY) }?.apply {
+        arguments?.takeIf {
+                    it.containsKey(ARG_INT) &&
+                    it.containsKey(ARG_CATEGORY) &&
+                    it.containsKey(ARG_QUESTION) &&
+                    it.containsKey(ARG_OPTIONS) &&
+                    it.containsKey(ARG_CORRECT_OPTIONS)
+        }?.apply {
             val textView = view.findViewById<TextView>(R.id.textView)
             val categoryOutput = view.findViewById<TextView>(R.id.category_output)
             val questionOutput = view.findViewById<TextView>(R.id.question_output)

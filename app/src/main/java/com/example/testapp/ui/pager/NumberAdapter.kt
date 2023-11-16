@@ -17,11 +17,11 @@ class NumberAdapter(
     override fun createFragment(position: Int): Fragment {
         val fragment = NumberFragment()
         fragment.arguments = Bundle().apply {
-            putInt(ARG_INT, position + 1)
+            putInt(ARG_INT, position)
             putString(ARG_CATEGORY, category)
-            putString(ARG_QUESTION, questions[position - 1].question)
-            putStringArrayList(ARG_OPTIONS, questions[position - 1].options as ArrayList)
-            putStringArrayList(ARG_CORRECT_OPTIONS, questions[position - 1].correctOptions as ArrayList)
+            putString(ARG_QUESTION, questions[position].question)
+            putStringArrayList(ARG_OPTIONS, questions[position].options as ArrayList)
+            putStringArrayList(ARG_CORRECT_OPTIONS, questions[position].correctOptions as ArrayList)
         }
         return fragment
     }

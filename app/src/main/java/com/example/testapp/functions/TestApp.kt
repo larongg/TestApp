@@ -27,6 +27,7 @@ class TestApp {
         }
 
         questionCards[category] = mutableListOf(card)
+        json.writeFile(category, card, path)
         return "Категория создана, вопрос добавлен"
     }
 
