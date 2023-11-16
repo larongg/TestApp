@@ -17,7 +17,6 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
-
 class AddQuestionsFragment : Fragment() {
     private fun createNewLinearLayout(): LinearLayout {
         val newLinearLayout = LinearLayout(requireContext())
@@ -70,6 +69,10 @@ class AddQuestionsFragment : Fragment() {
         return newCheckBox
     }
 
+    private fun showToast(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -100,10 +103,6 @@ class AddQuestionsFragment : Fragment() {
         val adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories)
         category.setAdapter(adapter)
-
-        fun showToast(message: String) {
-            Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
-        }
 
         // Создание нового варианта ответа
         buttonAddOption.setOnClickListener {

@@ -14,40 +14,24 @@ class TestApp {
     ): String {
         val card = QuestionCard(question, options, correctOptions)
 
-        if (!questionCards.containsKey(category)) {
-            questionCards[category] = mutableListOf(card)
-            json.writeFile(category, card, path)
-            return "Категория создана, вопрос добавлен"
-        } else if (!questionCards[category]!!.contains(card)) {
-            questionCards[category]?.add(card)
-            json.writeFile(category, card, path)
-            return "Вопрос добавлен"
+        when {
+            questionCards.containsKey(category) -> {
+                return if (questionCards[category]!!.contains(card)) {
+                    "Такой вопрос уже существует"
+                } else {
+                    questionCards[category]!!.add(card)
+                    json.writeFile(category, card, path)
+                    "Вопрос добавлен"
+                }
+            }
         }
 
-        return "Такой вопрос уже существует"
+        questionCards[category] = mutableListOf(card)
+        return "Категория создана, вопрос добавлен"
     }
 
     fun loadQuestions(path: String) {
-        for (map in json.importFromJSON(path)) {
-            @Suppress("UNCHECKED_CAST")
-            if (!questionCards.containsKey(map["category"])) {
-                questionCards[map["category"].toString()] = mutableListOf(
-                    QuestionCard(
-                        map["question"].toString(),
-                        map["options"] as List<String>,
-                        map["correctOptions"] as List<String>
-                    )
-                )
-            } else {
-                questionCards[map["category"]]!!.add(
-                    QuestionCard(
-                        map["question"].toString(),
-                        map["options"] as List<String>,
-                        map["correctOptions"] as List<String>
-                    )
-                )
-            }
-        }
+        questionCards.putAll(json.importFromJSON(path))
     }
 
     fun createQuestionsFile(path: String) {
@@ -58,10 +42,10 @@ class TestApp {
         return questionCards.keys
     }
 
-    fun getAllQuestionsByKey(key: String): Any? {
+    fun getAllQuestionsByKey(key: String): MutableList<QuestionCard> {
         if (shuffle) {
-            return questionCards[key]?.shuffle()
+            return questionCards[key]!!.toMutableList().apply { shuffle() }
         }
-        return questionCards[key]
+        return questionCards[key]!!
     }
 }

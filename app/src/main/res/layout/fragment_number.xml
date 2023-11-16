@@ -11,11 +11,45 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1"
         android:textSize="196sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/category_output"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/question_output"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/category_output" />
+
+    <TextView
+        android:id="@+id/options_output"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question_output" />
+
+    <TextView
+        android:id="@+id/correct_options_output"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/options_output" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -137,6 +137,7 @@
                     android:background="@color/purple_500"
                     android:insetTop="0dp"
                     android:insetBottom="0dp"
+                    android:onClick="addOption"
                     android:text="@string/plus"
                     android:textSize="34sp" />
 

@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.testapp.R
+import com.example.testapp.functions.TestApp
 
 class QuestionActivity : FragmentActivity() {
 
@@ -14,7 +15,12 @@ class QuestionActivity : FragmentActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
 
-        adapter = NumberAdapter(this)
+        val category = intent.getStringExtra("category")
+        val testApp = TestApp()
+        testApp.loadQuestions(filesDir.path)
+        val questions = testApp.getAllQuestionsByKey(category!!)
+
+        adapter = NumberAdapter(this, category, questions)
         viewPager = findViewById(R.id.pager)
         viewPager.adapter = adapter
     }

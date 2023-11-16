@@ -34,7 +34,7 @@ class QuizFragment : Fragment() {
         }
 
         for (category in testApp.getAllCategories().sorted()) {
-            val  newLinerLayout = LinearLayout(requireContext())
+            val newLinerLayout = LinearLayout(requireContext())
             newLinerLayout.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -46,10 +46,12 @@ class QuizFragment : Fragment() {
             newButtonCategory.layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                1f)
+                1f
+            )
             newButtonCategory.text = category
             newButtonCategory.setOnClickListener {
                 val intent = Intent(requireContext(), QuestionActivity::class.java)
+                intent.putExtra("category", newButtonCategory.text.toString())
                 startActivity(intent)
             }
 

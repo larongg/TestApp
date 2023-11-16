@@ -4,48 +4,44 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.File
 
+const val FILE_NAME = "data.json"
+const val DEFAULT_JSON_CONTENT = """{
+    "Страны мира": [{
+        "question": "Какая столица Франции?",
+        "options": ["Лондон", "Мадрид", "Париж", "Берлин"],
+        "correctOptions": ["Париж"]
+    }],
+    "Солнечная система": [{
+        "question": "Сколько планет в Солнечной системе?",
+        "options": ["6", "7", "8", "9"],
+        "correctOptions": ["8"]
+    }]}
+    """
 class JSONHelper {
-    private val fileName = "data.json"
     private val gson = Gson()
-    private val listType = object : TypeToken<List<HashMap<String, Any>>>() {}.type
-    fun importFromJSON(path: String): List<HashMap<String, Any>> {
-        val file = File(path, fileName).readText()
+    private val listType = object : TypeToken<HashMap<String, MutableList<QuestionCard>>>() {}.type
+
+    fun importFromJSON(path: String): HashMap<String, MutableList<QuestionCard>> {
+        val file = File(path, FILE_NAME).readText()
         return gson.fromJson(file, listType)
     }
 
     fun createFile(path: String) {
-        val fileContents = """[
-  {
-    "category" : "Страны мира",
-    "question": "Какая столица Франции?",
-    "options": ["Лондон", "Мадрид", "Париж", "Берлин"],
-    "correctOptions": ["Париж"]
-  },
-  {
-    "category": "Солнечная система",
-    "question": "Сколько планет в Солнечной системе?",
-    "options": ["6", "7", "8", "9"],
-    "correctOptions": ["8"]
-  }
-]"""
-        File(path, fileName).createNewFile()
-        File(path, fileName).writeText(fileContents)
+        File(path, FILE_NAME).createNewFile()
+        File(path, FILE_NAME).writeText(DEFAULT_JSON_CONTENT)
     }
 
-    fun writeFile(
-        category: String,
-        card: QuestionCard,
-        path: String
-    ) {
-        val list = importFromJSON(path) as MutableList<HashMap<String, Any>>
-        list.add(
-            hashMapOf(
-                "category" to category,
-                "question" to card.question,
-                "options" to card.options,
-                "correctOptions" to card.correctOptions
-            )
-        )
-        File(path, fileName).writeText(gson.toJson(list, listType))
+    fun writeFile(category: String, card: QuestionCard, path: String) {
+        val list = importFromJSON(path)
+
+        if (list.containsKey(category) and !list[category]!!.contains(card)){
+            list[category]!!.add(card)
+        }
+        if (!list.containsKey(category)) {
+            list[category] = mutableListOf(card)
+        }
+
+        // Save the updated list to the file
+        File(path, FILE_NAME).writeText(gson.toJson(list, listType))
     }
 }
