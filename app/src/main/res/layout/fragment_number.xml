@@ -7,49 +7,49 @@
     tools:context=".ui.pager.NumberFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView"
+
+    <ScrollView
+        android:id="@+id/scroll_queston"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:padding="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/check_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/scroll_question_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/category_output"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="48sp" />
+
+            <TextView
+                android:id="@+id/question_output"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="48sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/check_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="196sp"
+        android:layout_marginBottom="32dp"
+        android:text="@string/check"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/category_output"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/question_output"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/category_output" />
-
-    <TextView
-        android:id="@+id/options_output"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/question_output" />
-
-    <TextView
-        android:id="@+id/correct_options_output"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textSize="48sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/options_output" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
