@@ -4,20 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blind"
     tools:context=".ui.addquestions.AddQuestionsFragment">
 
     <ScrollView
         android:id="@+id/scroll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="80dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:foregroundGravity="top"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttons_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <LinearLayout
             android:id="@+id/add_question_main"
@@ -45,7 +43,7 @@
                         android:id="@+id/category_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/blind"
+                        android:background="@color/transparent"
                         android:hint="@string/category"
                         android:inputType="text"
                         android:textSize="16sp" />
@@ -71,7 +69,7 @@
                         android:id="@+id/question_input"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@color/blind"
+                        android:background="@color/transparent"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
@@ -101,7 +99,7 @@
                             android:id="@+id/option1_input"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/blind"
+                            android:background="@color/transparent"
                             android:hint="@string/options"
                             android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
@@ -122,68 +120,76 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/add_option"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/purple_500"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:onClick="addOption"
-                    android:text="@string/plus"
-                    android:textSize="34sp" />
-
-                <Button
-                    android:id="@+id/del_option"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@color/purple_500"
-                    android:insetTop="0dp"
-                    android:insetBottom="0dp"
-                    android:minHeight="20dp"
-                    android:text="@string/del_button"
-                    android:textSize="34sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/clear"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/purple_500"
-                    android:text="@string/clear"
-                    android:textSize="16sp" />
-
-                <Button
-                    android:id="@+id/add"
-                    style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/purple_500"
-                    android:text="@string/AddButton"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/buttons_layout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/add_option"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/plus"
+                android:textSize="34sp" />
+
+            <Button
+                android:id="@+id/del_option"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/del_button"
+                android:textSize="34sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/clear"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/clear"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/add"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/AddButton"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

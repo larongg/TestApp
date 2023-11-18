@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.RadioGroup
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.testapp.R
 import com.google.android.material.checkbox.MaterialCheckBox
@@ -48,13 +49,16 @@ class NumberFragment : Fragment() {
             if (correctOptions!!.size == 1) {
                 val radioGroup = RadioGroup(requireContext())
                 val radioList = mutableMapOf<Int, MaterialRadioButton>()
+                val linerLayout = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                linerLayout.topMargin = 10
 
                 for (i in options!!.indices) {
                     val newRadioButton = MaterialRadioButton(requireContext())
-                    newRadioButton.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
+                    newRadioButton.layoutParams = linerLayout
+                    newRadioButton.setBackgroundResource(R.drawable.border)
                     newRadioButton.id = View.generateViewId()
                     newRadioButton.text = options[i]
                     radioList[newRadioButton.id] = newRadioButton
@@ -87,13 +91,16 @@ class NumberFragment : Fragment() {
                 }
             } else {
                 val checkList = mutableMapOf<Int, MaterialCheckBox>()
+                val linerLayout = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                linerLayout.topMargin = 10
 
                 for (i in options!!.indices) {
                     val newCheckBox = MaterialCheckBox(requireContext())
-                    newCheckBox.layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
+                    newCheckBox.layoutParams = linerLayout
+                    newCheckBox.setBackgroundResource(R.drawable.border)
                     newCheckBox.id = View.generateViewId()
                     newCheckBox.text = options[i]
                     checkList[newCheckBox.id] = newCheckBox

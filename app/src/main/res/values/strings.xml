@@ -107,7 +107,7 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="title_settings">Настройки</string>
-    <string name="title_quiz">Квиз</string>
+    <string name="title_quiz">Тесты</string>
     <string name="title_add_questions">Добавить вопросы</string>
     <string name="start">Старт</string>
     <!-- TODO: Remove or change this placeholder text -->

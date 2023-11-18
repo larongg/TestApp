@@ -29,11 +29,7 @@ class AddQuestionsFragment : Fragment() {
     }
 
     private fun createNewTextInputLayout(): TextInputLayout {
-        val newTextInputLayout = TextInputLayout(
-            ContextThemeWrapper(requireContext(), R.style.MyTextInputLayout),
-            null,
-            0
-        )
+        val newTextInputLayout = TextInputLayout(requireContext())
         newTextInputLayout.layoutParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -45,7 +41,9 @@ class AddQuestionsFragment : Fragment() {
 
     private fun createNewEditText(): TextInputEditText {
         val newEditText = TextInputEditText(
-            requireContext()
+            ContextThemeWrapper(requireContext(), R.style.MyTextInputEditText),
+            null,
+            0
         )
         newEditText.layoutParams = LinearLayout.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT,
@@ -53,6 +51,7 @@ class AddQuestionsFragment : Fragment() {
         )
         newEditText.textSize = 16f
         newEditText.id = View.generateViewId()
+        newEditText.setBackgroundColor(resources.getColor(R.color.transparent, null))
 
         return newEditText
     }

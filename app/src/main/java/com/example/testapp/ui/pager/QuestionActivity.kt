@@ -1,6 +1,7 @@
 package com.example.testapp.ui.pager
 
 import android.os.Bundle
+import android.widget.Toolbar
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.testapp.R

@@ -3,6 +3,6 @@
 
     <style name="MyExposedDropdownMenuStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu" />
 
-    <style name="MyTextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox" />
+    <style name="MyTextInputEditText" parent="@style/Widget.MaterialComponents.TextInputEditText.FilledBox"/>
 
 </resources>
