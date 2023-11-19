@@ -37,7 +37,9 @@
                     android:id="@+id/category_layout"
                     style="@style/MyExposedDropdownMenuStyle"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    app:counterEnabled="true"
+                    app:counterMaxLength="20">
 
                     <AutoCompleteTextView
                         android:id="@+id/category_input"
@@ -46,6 +48,8 @@
                         android:background="@color/transparent"
                         android:hint="@string/category"
                         android:inputType="text"
+                        android:maxLength="20"
+                        android:maxLines="1"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>

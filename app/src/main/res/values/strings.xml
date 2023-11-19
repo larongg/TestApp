@@ -120,4 +120,5 @@
     <string name="plus">+</string>
     <string name="del_button">-</string>
     <string name="check">Готово</string>
+    <string name="run">Run</string>
 </resources>
