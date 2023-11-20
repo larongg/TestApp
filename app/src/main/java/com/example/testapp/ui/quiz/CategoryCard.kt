@@ -1,7 +1,9 @@
 package com.example.testapp.ui.quiz
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Typeface
+import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
@@ -12,7 +14,8 @@ import com.google.android.material.card.MaterialCardView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.android.material.textview.MaterialTextView
 
-fun categoryCard(context: Context, category: String): MaterialCardView {
+@SuppressLint("SetTextI18n")
+fun categoryCard(context: Context, category: String, questionSize: Int): MaterialCardView {
     val cardView = createCardView(context)
 
     val mainLinerLayout = LinearLayout(context)
@@ -72,7 +75,7 @@ fun categoryCard(context: Context, category: String): MaterialCardView {
         LinearLayout.LayoutParams.MATCH_PARENT
     )
     sizeCategory.textSize = 16f
-    sizeCategory.text = "Вопросов: "
+    sizeCategory.text = "Вопросов: $questionSize"
 
     centerLinerLayout.addView(inCenterLinerLayout)
     centerLinerLayout.addView(lineLayout)
@@ -147,6 +150,7 @@ private fun createCardView(context: Context): MaterialCardView {
     cardParams.bottomMargin = dpToPx(10f)
     cardView.layoutParams = cardParams
     cardView.radius = dpToPx(10f).toFloat()
+    cardView.id = View.generateViewId()
 
     return cardView
 }

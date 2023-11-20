@@ -72,6 +72,18 @@ class AddQuestionsFragment : Fragment() {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
+    private lateinit var category: MaterialAutoCompleteTextView
+    private lateinit var question: TextInputEditText
+    private lateinit var option1: TextInputEditText
+    private lateinit var check1: MaterialCheckBox
+
+    private val layouts = mutableListOf<LinearLayout>()
+    private val optionsMap = hashMapOf<Int, TextInputEditText>()
+    private val checkMap = hashMapOf<Int, MaterialCheckBox>()
+
+    private val stateOptions = "state_options"
+    private val stateChecks = "state_checks"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
@@ -85,14 +97,10 @@ class AddQuestionsFragment : Fragment() {
 
         val optionsLayout = view.findViewById<LinearLayout>(R.id.other_options)
 
-        val category = view.findViewById<MaterialAutoCompleteTextView>(R.id.category_input)
-        val question = view.findViewById<TextInputEditText>(R.id.question_input)
-        val option1 = view.findViewById<TextInputEditText>(R.id.option1_input)
-        val check1 = view.findViewById<MaterialCheckBox>(R.id.checkBox1)
-
-        val layouts = mutableListOf<LinearLayout>()
-        val optionsMap = hashMapOf<Int, TextInputEditText>()
-        val checkMap = hashMapOf<Int, MaterialCheckBox>()
+        category = view.findViewById(R.id.category_input)
+        question = view.findViewById(R.id.question_input)
+        option1 = view.findViewById(R.id.option1_input)
+        check1 = view.findViewById(R.id.checkBox1)
 
         optionsMap[option1.id] = option1
         checkMap[option1.id] = check1
@@ -102,6 +110,29 @@ class AddQuestionsFragment : Fragment() {
         val adapter =
             ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, categories)
         category.setAdapter(adapter)
+
+        if (savedInstanceState != null) {
+            val savedOptions = savedInstanceState.getStringArrayList(stateOptions)
+            val saveChecks = savedInstanceState.getStringArrayList(stateChecks)
+            // Восстановление добавленных пользователем элементов
+            for (key in savedOptions?.indices!!) {
+                val newLinearLayout = createNewLinearLayout()
+                val newTextInputLayout = createNewTextInputLayout()
+                val newEditText = createNewEditText()
+                val newCheckBox = createNewCheckBox()
+
+                newEditText.setText(savedOptions[key])
+                newCheckBox.isChecked = saveChecks?.get(key)?.toBoolean()!!
+                newTextInputLayout.addView(newEditText)
+                newLinearLayout.addView(newTextInputLayout)
+                newLinearLayout.addView(newCheckBox)
+                optionsLayout.addView(newLinearLayout)
+
+                optionsMap[newEditText.id] = newEditText
+                checkMap[newEditText.id] = newCheckBox
+                layouts.add(newLinearLayout)
+            }
+        }
 
         // Создание нового варианта ответа
         buttonAddOption.setOnClickListener {
@@ -176,5 +207,20 @@ class AddQuestionsFragment : Fragment() {
             Toast.makeText(requireContext(), "Очищено", Toast.LENGTH_SHORT).show()
         }
         return view
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        // Сохранение состояния для добавленных пользователем элементов
+        val savedOptions = mutableListOf<String>()
+        val savedCheck = mutableListOf<String>()
+        for (key in optionsMap.keys) {
+            if (key != option1.id) {
+                savedOptions.add(optionsMap[key]?.text.toString())
+                savedCheck.add(checkMap[key]?.isChecked.toString())
+            }
+        }
+        outState.putStringArrayList(stateOptions, ArrayList(savedOptions))
+        outState.putStringArrayList(stateChecks, ArrayList(savedCheck))
     }
 }

@@ -121,4 +121,7 @@
     <string name="del_button">-</string>
     <string name="check">Готово</string>
     <string name="run">Run</string>
+    <string name="drop_down_icon">▼</string>
+    <string name="delete_category">Удалить категорию</string>
+    <string name="edit_category">Редактирование категории</string>
 </resources>
