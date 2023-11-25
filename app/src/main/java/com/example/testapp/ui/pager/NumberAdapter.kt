@@ -8,7 +8,7 @@ import com.example.testapp.functions.QuestionCard
 
 class NumberAdapter(
     fragment: FragmentActivity,
-    private val category: String,
+    private val categories: MutableList<String>,
     private val questions: MutableList<QuestionCard>
 ) : FragmentStateAdapter(fragment) {
 
@@ -17,7 +17,7 @@ class NumberAdapter(
     override fun createFragment(position: Int): Fragment {
         val fragment = NumberFragment()
         fragment.arguments = Bundle().apply {
-            putString(ARG_CATEGORY, category)
+            putString(ARG_CATEGORY, categories[position])
             putString(ARG_QUESTION, questions[position].question)
             putStringArrayList(ARG_OPTIONS, questions[position].options as ArrayList)
             putStringArrayList(ARG_CORRECT_OPTIONS, questions[position].correctOptions as ArrayList)

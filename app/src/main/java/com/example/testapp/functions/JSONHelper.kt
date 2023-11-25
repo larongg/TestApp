@@ -7,7 +7,7 @@ import java.io.File
 const val FILE_NAME = "data.json"
 const val DEFAULT_JSON_CONTENT = """{
     "Страны мира": [{
-        "question": "Какая столица Франции?",
+        "question": "Столица Франции?",
         "options": ["Лондон", "Мадрид", "Париж", "Берлин"],
         "correctOptions": ["Париж"]
     }],

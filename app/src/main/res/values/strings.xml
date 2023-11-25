@@ -124,4 +124,6 @@
     <string name="drop_down_icon">▼</string>
     <string name="delete_category">Удалить категорию</string>
     <string name="edit_category">Редактирование категории</string>
+    <string name="noneChoosed">Не выбран ни один вопрос или категория</string>
+    <string name="categorySize">Вопросов: %d</string>
 </resources>

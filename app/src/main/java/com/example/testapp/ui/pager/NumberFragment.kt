@@ -6,12 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.RadioGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.testapp.R
-import com.google.android.material.checkbox.MaterialCheckBox
-import com.google.android.material.radiobutton.MaterialRadioButton
 
 const val ARG_CATEGORY = "category"
 const val ARG_QUESTION = "question"
@@ -33,99 +31,36 @@ class NumberFragment : Fragment() {
                     it.containsKey(ARG_OPTIONS) &&
                     it.containsKey(ARG_CORRECT_OPTIONS)
         }?.apply {
-            val categoryOutput = view.findViewById<TextView>(R.id.category_output)
             val questionOutput = view.findViewById<TextView>(R.id.question_output)
             val checkButton = view.findViewById<Button>(R.id.check_button)
             val layout = view.findViewById<LinearLayout>(R.id.scroll_question_layout)
 
-            val category = getString(ARG_CATEGORY)
             val question = getString(ARG_QUESTION)
             val options = getStringArrayList(ARG_OPTIONS)
             val correctOptions = getStringArrayList(ARG_CORRECT_OPTIONS)
-            categoryOutput.text = category
             questionOutput.text = question
 
+            val questionsView = QuestionsView(requireContext())
+
             if (correctOptions!!.size == 1) {
-                val radioGroup = RadioGroup(requireContext())
-                val radioList = mutableMapOf<Int, MaterialRadioButton>()
-                val linerLayout = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                linerLayout.topMargin = 10
-
-                for (i in options!!.indices) {
-                    val newRadioButton = MaterialRadioButton(requireContext())
-                    newRadioButton.layoutParams = linerLayout
-                    newRadioButton.setBackgroundResource(R.drawable.border)
-                    newRadioButton.id = View.generateViewId()
-                    newRadioButton.text = options[i]
-                    radioList[newRadioButton.id] = newRadioButton
-                    radioGroup.addView(newRadioButton)
-                }
-
-                layout.addView(radioGroup)
-
-                checkButton.setOnClickListener {
-                    radioGroup.isClickable = false
-
-                    for (id in radioList.keys) {
-                        if (radioList[id]?.text in correctOptions) {
-                            radioList[id]?.setTextColor(
-                                resources.getColor(
-                                    R.color.true_color,
-                                    null
-                                )
-                            )
-                        } else {
-                            radioList[id]?.setTextColor(
-                                resources.getColor(
-                                    R.color.false_color,
-                                    null
-                                )
-                            )
-                        }
-                    }
-
-                }
+                questionsView.addRadioGroup(options!!.toList())
             } else {
-                val checkList = mutableMapOf<Int, MaterialCheckBox>()
-                val linerLayout = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                )
-                linerLayout.topMargin = 10
+                questionsView.addCheckBoxGroup(options!!.toList())
+            }
 
-                for (i in options!!.indices) {
-                    val newCheckBox = MaterialCheckBox(requireContext())
-                    newCheckBox.layoutParams = linerLayout
-                    newCheckBox.setBackgroundResource(R.drawable.border)
-                    newCheckBox.id = View.generateViewId()
-                    newCheckBox.text = options[i]
-                    checkList[newCheckBox.id] = newCheckBox
-                    layout.addView(newCheckBox)
-                }
+            layout.addView(questionsView)
 
-                checkButton.setOnClickListener {
-                    for (id in checkList.keys) {
-                        checkList[id]?.isClickable = false
-
-                        if (checkList[id]?.text in correctOptions) {
-                            checkList[id]?.setTextColor(
-                                resources.getColor(
-                                    R.color.true_color,
-                                    null
-                                )
-                            )
-                        } else {
-                            checkList[id]?.setTextColor(
-                                resources.getColor(
-                                    R.color.false_color,
-                                    null
-                                )
-                            )
-                        }
-                    }
+            checkButton.setOnClickListener {
+                if (correctOptions.size == 1 && questionsView.checkRadioPressed()) {
+                    questionsView.checkRadioButtons(correctOptions)
+                } else if (correctOptions.size > 1 && questionsView.checkCheckBoxPressed()) {
+                    questionsView.checkCheckBoxes(correctOptions)
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Не выбраны варианты ответа",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
         }

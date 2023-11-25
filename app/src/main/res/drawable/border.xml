@@ -1,18 +1,17 @@
-<!-- res/drawable/border.xml -->
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <!-- Background color of the layout -->
         <shape android:shape="rectangle">
-            <solid android:color="#FFFFFF" /> <!-- Set your background color here -->
+            <solid android:color="#FFFFFF" />
+            <corners android:radius="8dp" />
         </shape>
     </item>
     <item>
-        <!-- Border color and thickness -->
         <shape android:shape="rectangle">
-            <solid android:color="#00000000" /> <!-- Transparent color for the center -->
+            <solid android:color="#00000000" />
             <stroke
                 android:width="2dp"
-            android:color="#FF959595" /> <!-- Set your border color here -->
+                android:color="#FF959595" />
+            <corners android:radius="8dp" />
         </shape>
     </item>
 </layer-list>
