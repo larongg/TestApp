@@ -57,27 +57,42 @@ class QuestionsView(context: Context) : LinearLayout(context) {
         }
     }
 
-    fun checkRadioButtons(correctOptions: List<String>) {
+    fun checkRadioButtons(correctOptions: List<String>): Boolean {
+        var isChecked = false
         radioList.forEach {
             it.isClickable = false
             if (correctOptions.contains(it.text)) {
                 it.setBackgroundColor(resources.getColor(R.color.true_color, null))
+                if (it.isChecked) {
+                    isChecked = true
+                }
+            } else {
+                it.setBackgroundColor(resources.getColor(R.color.false_color, null))
             }
-            else {it.setBackgroundColor(resources.getColor(R.color.false_color, null))}
         }
+        return isChecked
     }
 
-    fun checkCheckBoxes(correctOptions: List<String>) {
+    fun checkCheckBoxes(correctOptions: List<String>): Boolean {
+        var isChecked = 0
         checkList.forEach {
             it.isClickable = false
             if (correctOptions.contains(it.text)) {
                 it.setBackgroundColor(resources.getColor(R.color.true_color, null))
+                if (it.isChecked) {
+                    isChecked++
+                }
+            } else {
+                it.setBackgroundColor(resources.getColor(R.color.false_color, null))
             }
-            else {it.setBackgroundColor(resources.getColor(R.color.false_color, null))}
         }
+        if (isChecked == correctOptions.size) {
+            return true
+        }
+        return false
     }
 
-    fun checkRadioPressed():Boolean {
+    fun checkRadioPressed(): Boolean {
         radioList.forEach {
             if (it.isChecked) {
                 return true
@@ -86,7 +101,7 @@ class QuestionsView(context: Context) : LinearLayout(context) {
         return false
     }
 
-    fun checkCheckBoxPressed():Boolean {
+    fun checkCheckBoxPressed(): Boolean {
         checkList.forEach {
             if (it.isChecked) {
                 return true
